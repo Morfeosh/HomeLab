@@ -1,1 +1,48 @@
+services:
+  wg-easy:
+    environment:
+      # Change Language:
+      # (Supports: en, ua, ru, tr, no, pl, fr, de, ca, es, ko, vi, nl, is, pt, chs, cht, it, th, hi, ja, si)
+        - LANG=es
+      # ⚠️ Required:
+      # Change this to your host's public address
+        - WG_HOST=<IP o dominio>
+
+      # Optional:
+        - PASSWORD_HASH=<GENERAR CLAVE>
+        - PORT=51822
+        - WG_PORT=51823
+      # - WG_CONFIG_PORT=92820
+        - WG_DEFAULT_ADDRESS=10.8.0.x
+        - WG_DEFAULT_DNS=1.1.1.1
+      # - WG_MTU=1420
+      # - WG_ALLOWED_IPS=<IPs permitidas>
+        - WG_PERSISTENT_KEEPALIVE=25
+      # - WG_PRE_UP=echo "Pre Up" > /etc/wireguard/pre-up.txt
+      # - WG_POST_UP=echo "Post Up" > /etc/wireguard/post-up.txt
+      # - WG_PRE_DOWN=echo "Pre Down" > /etc/wireguard/pre-down.txt
+      # - WG_POST_DOWN=echo "Post Down" > /etc/wireguard/post-down.txt
+        - UI_TRAFFIC_STATS=true
+        - UI_CHART_TYPE=3 # (0 Charts disabled, 1 # Line chart, 2 # Area chart, 3 # Bar chart)
+      # - WG_ENABLE_ONE_TIME_LINKS=true
+      # - UI_ENABLE_SORT_CLIENTS=true
+      # - WG_ENABLE_EXPIRES_TIME=true
+      # - ENABLE_PROMETHEUS_METRICS=false
+      # - #PROMETHEUS_METRICS_PASSWORD=<Generar contraseña> # (needs double $$, hash of 'prometheus_password'; see "How_to_generate_an_bcrypt_hash.md" for generate the hash)
+
+    image: ghcr.io/wg-easy/wg-easy
+    container_name: wg-easy
+    volumes:
+      - ./wireguard:/etc/wireguard
+    ports:
+      - "51823:51823/udp"
+      - "51822:51822/tcp"
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+      # - NET_RAW # ⚠️ Uncomment if using Podman
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
 
