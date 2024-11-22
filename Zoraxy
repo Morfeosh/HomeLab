@@ -1,0 +1,12 @@
+services:
+  zoraxy-docker:
+    image: zoraxydocker/zoraxy:latest
+    container_name: zoraxy
+    ports:
+      - 80:80
+      - 443:443
+      - 8000:8000/tcp
+    volumes:
+      - ./config:/opt/zoraxy/config/
+    environment:
+      ARGS: '-noauth=false'
