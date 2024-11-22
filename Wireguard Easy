@@ -8,11 +8,12 @@ services:
       # Change this to your host's public address
         - WG_HOST=<IP o dominio>
 
-      # Optional:
+      # GENERAR CLAVE
       # docker run -it ghcr.io/wg-easy/wg-easy wgpw YOUR_PASSWORD
         PASSWORD_HASH='$2b$12$coPqCsPtcFO.Ab99xylBNOW4.Iu7OOA2/ZIboHN6/oyxca3MWo7fW' // literalmente YOUR_PASSWORD
       # Importante: asegúrese de incluir su contraseña entre comillas simples cuando ejecute el comando docker run.
       # En su lugar, reemplace cada símbolo $ con dos símbolos $$. 
+
         - PASSWORD_HASH=<GENERAR CLAVE>
         - PORT=51822
         - WG_PORT=51823
